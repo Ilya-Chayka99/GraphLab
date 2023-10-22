@@ -53,17 +53,34 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <Button x:Name="addedge" Content="Добавить ребро" HorizontalAlignment="Left" Margin="1074,-308,0,0" VerticalAlignment="Top" Height="41" Width="174" Command="{Binding CreateEdgeCommand}"/>
-        <Button x:Name="addvertex" Content="Добавить вершину" HorizontalAlignment="Left" Margin="1074,-170,0,0" VerticalAlignment="Top" Height="41" Width="174" Command="{Binding AddVertexCommand}"/>
-        <Button x:Name="button3" Content="Удалить ребро" HorizontalAlignment="Left" Margin="1074,-262,0,0" VerticalAlignment="Top" Height="41" Width="174" Command="{Binding DeleteEdgeCommand}"/>
+        <Button x:Name="addedge" Content="Добавить ребро" HorizontalAlignment="Left" Margin="756,-284,0,0" VerticalAlignment="Top" Height="41" Width="120" Command="{Binding CreateEdgeCommand}"/>
+        <Button x:Name="addvertex" Content="Добавить вершину" HorizontalAlignment="Left" Margin="880,-217,0,0" VerticalAlignment="Top" Height="41" Width="120" Command="{Binding AddVertexCommand}"/>
+        <Button x:Name="button3" Content="Удалить ребро" HorizontalAlignment="Left" Margin="881,-284,0,0" VerticalAlignment="Top" Height="41" Width="120" Command="{Binding DeleteEdgeCommand}"/>
         <DataGrid ItemsSource="{Binding MatrixSmView}" Margin="0,-308,876,697"/>
-        <TextBox x:Name="v2" HorizontalAlignment="Left" Margin="642,-308,0,0" TextWrapping="Wrap" Text="{Binding VertexTwo, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="211" Height="41"/>
-        <TextBox x:Name="v1" HorizontalAlignment="Left" Margin="429,-308,0,0" TextWrapping="Wrap" Text="{Binding VertexOne, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="208" Height="41"/>
-        <TextBox x:Name="mass" HorizontalAlignment="Left" Margin="858,-308,0,0" TextWrapping="Wrap" Text="{Binding EdgeWeight, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="211" Height="41"/>
-        <Button x:Name="delvertex" Content="Удалить вершину" HorizontalAlignment="Left" Margin="1074,-216,0,0" VerticalAlignment="Top" Height="41" Width="174" Command="{Binding DelVertexCommand}"/>
-        <TextBox x:Name="delver" HorizontalAlignment="Left" Height="41" Margin="858,-212,0,0" TextWrapping="Wrap" Text="{Binding VertexDel,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="211"/>
+        <TextBox x:Name="v2" HorizontalAlignment="Left" Margin="538,-284,0,0" TextWrapping="Wrap" Text="{Binding VertexTwo, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="104" Height="41"/>
+        <TextBox x:Name="v1" HorizontalAlignment="Left" Margin="429,-284,0,0" TextWrapping="Wrap" Text="{Binding VertexOne, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="104" Height="41"/>
+        <TextBox x:Name="mass" HorizontalAlignment="Left" Margin="647,-284,0,0" TextWrapping="Wrap" Text="{Binding EdgeWeight, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="104" Height="41"/>
+        <Button x:Name="delvertex" Content="Удалить вершину" HorizontalAlignment="Left" Margin="756,-217,0,0" VerticalAlignment="Top" Height="41" Width="120" Command="{Binding DelVertexCommand}"/>
+        <TextBox x:Name="delver" HorizontalAlignment="Left" Height="41" Margin="647,-217,0,0" TextWrapping="Wrap" Text="{Binding VertexDel,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="104"/>
         <CheckBox x:Name="checkBox" Content="Вид входных и выходных данных (Матрица смежности или список ребер)" HorizontalAlignment="Left" Height="30" Margin="814,-35,0,0" VerticalAlignment="Top" Width="434" IsChecked="{Binding TipGraph}"/>
         <Button x:Name="addvertex_Копировать" Content="Загрузить из файла граф" HorizontalAlignment="Left" Margin="1074,-81,0,0" VerticalAlignment="Top" Height="41" Width="174" Command="{Binding LoadFileCommand}"/>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Height="41" Margin="814,-81,0,0" VerticalAlignment="Top" Width="255"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Height="41" Margin="814,-81,0,0" VerticalAlignment="Top" Width="255" ItemsSource="{Binding FileNames}" SelectedItem="{Binding SelectFile}"/>
+        <Label x:Name="label" Content="Первая вершина" HorizontalAlignment="Left" Height="28" Margin="429,-312,0,0" VerticalAlignment="Top" Width="104"/>
+        <Label x:Name="label_Копировать" Content="Вторая вершина" HorizontalAlignment="Left" Height="28" Margin="538,-312,0,0" VerticalAlignment="Top" Width="104"/>
+        <Label x:Name="label_Копировать1" Content="Вес ребра" HorizontalAlignment="Left" Height="28" Margin="647,-312,0,0" VerticalAlignment="Top" Width="104"/>
+        <Label x:Name="label_Копировать2" Content="Вершина" HorizontalAlignment="Left" Height="26" Margin="649,-243,0,0" VerticalAlignment="Top" Width="102"/>
+        <Label x:Name="label_Копировать3" Content="Вывод" HorizontalAlignment="Left" Height="28" Margin="429,-240,0,0" VerticalAlignment="Top" Width="104"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="41" Margin="429,-217,0,0" TextWrapping="Wrap" Text="{Binding Conclusion}" VerticalAlignment="Top" Width="104"/>
+        <Button x:Name="button" Content="Количесво вершин" Command="{Binding KolVertexCommand }" HorizontalAlignment="Left" Height="41" Margin="647,-140,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="button_Копировать" Content="Количество ребер" Command="{Binding KolEdgeCommand}" HorizontalAlignment="Left" Height="41" Margin="772,-140,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="button_Копировать1" Content="Смежность" Command="{Binding SmezCommand}" HorizontalAlignment="Left" Height="41" Margin="897,-140,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="41" Margin="429,-140,0,0" TextWrapping="Wrap" Text="{Binding VertexOneSm , UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="104"/>
+        <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="41" Margin="538,-140,0,0" TextWrapping="Wrap" Text="{Binding VertexTwoSm , UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="104"/>
+        <Label x:Name="label_Копировать4" Content="Первая вершина" HorizontalAlignment="Left" Height="28" Margin="429,-168,0,0" VerticalAlignment="Top" Width="104"/>
+        <Label x:Name="label_Копировать5" Content="Вторая вершина" HorizontalAlignment="Left" Height="28" Margin="538,-168,0,0" VerticalAlignment="Top" Width="104"/>
+        <Button x:Name="button1" Content="Вес ребра" Command="{Binding WaitEdgeCommand}" HorizontalAlignment="Left" Height="41" Margin="1022,-140,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBox1_Копировать" HorizontalAlignment="Left" Height="41" Margin="429,-71,0,0" TextWrapping="Wrap" Text="{Binding FileNameSave, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="104"/>
+        <Label x:Name="label_Копировать6" Content="Название файла" HorizontalAlignment="Left" Height="28" Margin="429,-99,0,0" VerticalAlignment="Top" Width="104"/>
+        <Button x:Name="button_Копировать2" Content="Сохраниеть" Command="{Binding SaveToFileCommand}" HorizontalAlignment="Left" Height="41" Margin="538,-71,0,0" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>

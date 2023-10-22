@@ -22,6 +22,39 @@ namespace gr6
         public double Heigth { get; set; } = 670;
         private int radius = 30;
 
+        #region Priperty : string[] - Имена файлов с графами
+        private string[] _FileNames = new string[1];
+
+        /// <summary>Имена файлов с графами</summary>
+        public string[] FileNames
+        {
+            get => _FileNames;
+            set => Set(ref _FileNames, value, "FileNames");
+        }
+        #endregion
+
+        #region Priperty : string - Вывод на экран по нескольким функциям
+        private string _Conclusion;
+
+        /// <summary>Вывод на экран по нескольким функциям</summary>
+        public string Conclusion
+        {
+            get => _Conclusion;
+            set => Set(ref _Conclusion, value, "Conclusion");
+        }
+        #endregion 
+
+        #region Priperty : string - Выбранный файл для загрузки
+        private string _SelectFile;
+
+        /// <summary>Выбранный файл для загрузки</summary>
+        public string SelectFile
+        {
+            get => _SelectFile;
+            set => Set(ref _SelectFile, value, "SelectFile");
+        }
+        #endregion 
+
         #region Priperty : int - Количество вершин графа
         private int _CountGraph = 0;
 
@@ -92,6 +125,17 @@ namespace gr6
         }
         #endregion
 
+        #region Priperty : string - Название файла
+        private string _FileNameSave;
+
+        /// <summary>Название файла</summary>
+        public string FileNameSave
+        {
+            get => _FileNameSave;
+            set => Set(ref _FileNameSave, value, "FileNameSave");
+        }
+        #endregion 
+
         #region Priperty : string - Первая вершина для добавления / удаления ребра
         private string _VertexOne;
 
@@ -111,6 +155,28 @@ namespace gr6
         {
             get => _VertexTwo;
             set => Set(ref _VertexTwo, value, "VertexTwo");
+        }
+        #endregion
+
+        #region Priperty : string - Первая вершина для проверки на смежность / показать вес ребра
+        private string _VertexOneSm;
+
+        /// <summary>Первая вершина для проверки на смежность / показать вес ребра</summary>
+        public string VertexOneSm
+        {
+            get => _VertexOneSm;
+            set => Set(ref _VertexOneSm, value, "VertexOneSm");
+        }
+        #endregion
+
+        #region Priperty : string - Вторая вершина проверки на смежность / показать вес ребра
+        private string _VertexTwoSm;
+
+        /// <summary>Вторая вершина для проверки на смежность / показать вес ребра</summary>
+        public string VertexTwoSm
+        {
+            get => _VertexTwoSm;
+            set => Set(ref _VertexTwoSm, value, "VertexTwoSm");
         }
         #endregion
 
@@ -208,6 +274,125 @@ namespace gr6
         }
         #endregion
 
+        #region Command KolVertexCommand - Количество рершин в графе
+
+        ///<summary>Количество рершин в графе</summary>
+        private LambdaCommand? _KolVertexCommand;
+
+        ///<summary>Количество рершин в графе</summary>
+        public ICommand KolVertexCommand => _KolVertexCommand
+                    ??= new(OnKolVertexCommandExecuted, CanKolVertexCommandExecute);
+
+        ///<summary>Проверка возможности выполнения - Количество рершин в графе</summary>
+        private bool CanKolVertexCommandExecute(object p) => true;
+
+        ///<summary>Логика выполнения - Количество рершин в графе</summary>
+        private void OnKolVertexCommandExecuted(object p)
+        {
+            Conclusion = CountGraph.ToString();
+        }
+        #endregion
+
+        #region Command KolEdgeCommand - Количество ребер в графе
+
+        ///<summary>Количество ребер в графе</summary>
+        private LambdaCommand? _KolEdgeCommand;
+
+        ///<summary>Количество ребер в графе</summary>
+        public ICommand KolEdgeCommand => _KolEdgeCommand
+                    ??= new(OnKolEdgeCommandExecuted, CanKolEdgeCommandExecute);
+
+        ///<summary>Проверка возможности выполнения - Количество ребер в графе</summary>
+        private bool CanKolEdgeCommandExecute(object p) => true;
+
+        ///<summary>Логика выполнения - Количество ребер в графе</summary>
+        private void OnKolEdgeCommandExecuted(object p)
+        {
+            Conclusion = Line.ToList().Count.ToString();
+        }
+        #endregion
+
+        #region Command SmezCommand - Проверка на смежность 2х вершин
+
+        ///<summary>Проверка на смежность 2х вершин</summary>
+        private LambdaCommand? _SmezCommand;
+
+        ///<summary>Проверка на смежность 2х вершин</summary>
+        public ICommand SmezCommand => _SmezCommand
+                    ??= new(OnSmezCommandExecuted, CanSmezCommandExecute);
+
+        ///<summary>Проверка возможности выполнения - Проверка на смежность 2х вершин</summary>
+        private bool CanSmezCommandExecute(object p)
+        {
+            try
+            {
+                var v1 = int.Parse(VertexOneSm);
+                var v2 = int.Parse(VertexTwoSm);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        ///<summary>Логика выполнения - Проверка на смежность 2х вершин</summary>
+        private void OnSmezCommandExecuted(object p)
+        {
+            try
+            {
+                var v1 =int.Parse(VertexOneSm);
+                var v2 = int.Parse(VertexTwoSm);
+                if (MatrixSm[v1, v2] > 0) Conclusion = "Trye";
+                else Conclusion = "False";
+            }
+            catch (Exception)
+            {
+                Conclusion = "False";
+            }
+            
+        }
+        #endregion
+
+        #region Command WaitEdgeCommand - Вес ребра заданного 2я вершинами
+
+        ///<summary>Вес ребра заданного 2я вершинами</summary>
+        private LambdaCommand? _WaitEdgeCommand;
+
+        ///<summary>Вес ребра заданного 2я вершинами</summary>
+        public ICommand WaitEdgeCommand => _WaitEdgeCommand
+                    ??= new(OnWaitEdgeCommandExecuted, CanWaitEdgeCommandExecute);
+
+        ///<summary>Проверка возможности выполнения - Вес ребра заданного 2я вершинами</summary>
+        private bool CanWaitEdgeCommandExecute(object p)
+        {
+            try
+            {
+                var v1 = int.Parse(VertexOneSm);
+                var v2 = int.Parse(VertexTwoSm);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        ///<summary>Логика выполнения - Вес ребра заданного 2я вершинами</summary>
+        private void OnWaitEdgeCommandExecuted(object p)
+        {
+            try
+            {
+                var v1 = int.Parse(VertexOneSm);
+                var v2 = int.Parse(VertexTwoSm);
+                Conclusion = MatrixSm[v1, v2].ToString();
+            }
+            catch (Exception)
+            {
+                Conclusion = "0";
+            }
+        }
+        #endregion
 
         #region Command CreateEdgeCommand - Добавление ребра
 #nullable enable
@@ -301,6 +486,25 @@ namespace gr6
         }
         #endregion
 
+        #region Command SaveToFileCommand - Сохранение в файл графа
+
+        ///<summary>Сохранение в файл графа</summary>
+        private LambdaCommand? _SaveToFileCommand;
+
+        ///<summary>Сохранение в файл графа</summary>
+        public ICommand SaveToFileCommand => _SaveToFileCommand
+                    ??= new(OnSaveToFileCommandExecuted, CanSaveToFileCommandExecute);
+
+        ///<summary>Проверка возможности выполнения - Сохранение в файл графа</summary>
+        private bool CanSaveToFileCommandExecute(object p) => true;
+
+        ///<summary>Логика выполнения - Сохранение в файл графа</summary>
+        private void OnSaveToFileCommandExecuted(object p)
+        {
+            SaveToFile();
+        }
+        #endregion
+
         #region Priperty : ObservableCollection<Li> - Колекция ребер графа
         private ObservableCollection<Li> _Line = new ObservableCollection<Li>();
 
@@ -314,6 +518,7 @@ namespace gr6
         #endregion
 		public GraphViewModel()
         {
+            LoadFileName();
         }
      
         private void CreateEllipse()
@@ -400,11 +605,11 @@ namespace gr6
             FileStream fs;
             try
             {
-                fs = new FileStream("Graph\\Graph1.txt", FileMode.Open);
+                fs = new FileStream("Graph\\"+ SelectFile + ".txt", FileMode.Open);
             }
             catch (FileNotFoundException)
             {
-                MessageBox.Show("Отсутствует конфигурационный файл " + "\"" + "Graph1.txt" + "\"");
+                MessageBox.Show("Отсутствует файл " + "\"" + SelectFile + ".txt" + "\"");
                 return;
             }
 
@@ -420,7 +625,7 @@ namespace gr6
                     continue;
                 }
                 double[,] matrix = new double[CountGraph, CountGraph];
-                for (int i = 0; i < CountGraph && !sr.EndOfStream; i++)
+                for (int i = 0; ; i++)
                 {
                     newLine = Regex.Replace(newLine, @"\s+", " ");
                     var cur = newLine.Replace("\t", "]")
@@ -447,14 +652,13 @@ namespace gr6
                         matrix[v,j] = weight;
                         matrix[j, v] = weight;
                     }
-                    
 
-                    newLine = sr.ReadLine();
+                    if (!sr.EndOfStream)
+                        newLine = sr.ReadLine();
+                    else break;
                 }
                 MatrixSm = matrix;
-
             }
-
             sr.Close();
             fs.Close();
         }
@@ -524,6 +728,53 @@ namespace gr6
             CreateEllipse();
             CalculateLine();
         }
-
+        private void LoadFileName()
+        {
+            var FileName = Directory.GetFiles("Graph");
+            for (int i = 0; i < FileName.Length; i++)
+            {
+                FileName[i] = FileName[i].Split('\\')[1];
+                FileName[i] = FileName[i].Split('.')[0];
+            }
+            FileNames = FileName;
+        }
+        private void SaveToFile()
+        {
+            var fileStream = File.Create("Graph\\" + FileNameSave + ".txt");
+            fileStream.Close();
+            using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine("Graph\\" + FileNameSave + ".txt")))
+            {
+                outputFile.WriteLine(CountGraph.ToString());
+                if(!TipGraph)
+                    for (int i = 0; i < CountGraph; i++)
+                    {
+                        for (int j = 0; j < CountGraph; j++)
+                        {
+                            outputFile.Write(MatrixSm[i,j].ToString());
+                            if (j != CountGraph - 1) outputFile.Write(" ");
+                        }
+                        if(i != CountGraph - 1) outputFile.WriteLine("");
+                    }
+                else
+                {
+                    for (int i = 0; i < CountGraph; i++)
+                    {
+                        for (int j = i; j < CountGraph; j++)
+                        {
+                            if(MatrixSm[i, j] > 0)
+                            {
+                                outputFile.Write(i.ToString());
+                                outputFile.Write(" ");
+                                outputFile.Write(j.ToString());
+                                outputFile.Write(" ");
+                                outputFile.Write(MatrixSm[i, j].ToString());
+                                outputFile.WriteLine("");
+                            }
+                        }
+                    }
+                }
+            }
+            LoadFileName();
+        }
     }
 }

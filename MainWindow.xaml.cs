@@ -27,5 +27,10 @@ namespace gr6
         {
 
         }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
