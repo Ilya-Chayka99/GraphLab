@@ -82,5 +82,6 @@
         <TextBox x:Name="textBox1_Копировать" HorizontalAlignment="Left" Height="41" Margin="429,-71,0,0" TextWrapping="Wrap" Text="{Binding FileNameSave, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="104"/>
         <Label x:Name="label_Копировать6" Content="Название файла" HorizontalAlignment="Left" Height="28" Margin="429,-99,0,0" VerticalAlignment="Top" Width="104"/>
         <Button x:Name="button_Копировать2" Content="Сохраниеть" Command="{Binding SaveToFileCommand}" HorizontalAlignment="Left" Height="41" Margin="538,-71,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="button2" Content="Проверка" Command="{Binding CheckCommand}" HorizontalAlignment="Left" Height="41" Margin="1022,-284,0,0" VerticalAlignment="Top" Width="139"/>
     </Grid>
 </Window>

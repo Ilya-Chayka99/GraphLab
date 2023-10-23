@@ -505,6 +505,25 @@ namespace gr6
         }
         #endregion
 
+        #region Command CheckCommand - Проверка доп задания
+
+        ///<summary>Проверка доп задания</summary>
+        private LambdaCommand? _CheckCommand;
+
+        ///<summary>Проверка доп задания</summary>
+        public ICommand CheckCommand => _CheckCommand
+                    ??= new(OnCheckCommandExecuted, CanCheckCommandExecute);
+
+        ///<summary>Проверка возможности выполнения - Проверка доп задания</summary>
+        private bool CanCheckCommandExecute(object p) => true;
+
+        ///<summary>Логика выполнения - Проверка доп задания</summary>
+        private void OnCheckCommandExecuted(object p)
+        {
+            CheckAdditionalTask();
+        }
+        #endregion
+
         #region Priperty : ObservableCollection<Li> - Колекция ребер графа
         private ObservableCollection<Li> _Line = new ObservableCollection<Li>();
 
@@ -775,6 +794,26 @@ namespace gr6
                 }
             }
             LoadFileName();
+        }
+        private void CheckAdditionalTask()
+        {
+            var step = 0;
+            for (int i = 0;i < CountGraph; i++)
+            {
+                var count = 0;
+                for(int j = 0;j < CountGraph; j++)
+                {
+                    if (MatrixSm[i, j] > 0) count++;
+                }
+                if (count is 3) step++;
+            }
+            if (step != 2) Conclusion = "False, таких точек нет";
+            else
+            {
+                if (CountGraph >= 4 && Line.ToArray().Length >= 4) Conclusion = "True, такие вершины есть";
+                else Conclusion = "False, таких точек нет";
+            }
+            
         }
     }
 }
